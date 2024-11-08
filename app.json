@@ -1,6 +1,15 @@
 {
   "expo": {
     "name": "Movie_Details",
+    "plugins": [
+      [
+        "expo-av",
+        {
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
+        }
+      ]
+    ],
+    "test":"jest",
     "slug": "Movie_Details",
     "version": "1.0.0",
     "orientation": "portrait",
