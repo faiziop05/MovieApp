@@ -1,48 +1,55 @@
-## Feature #1: Favorite Movies
--	Movie can be marked favourite on both List/Grid and Details screen.
--	If Movie is marked favourite on list/grid screen, then it will be marked as favourite on details screen and vice versa.
--	Favourites persists its state even when offline.
+# MovieApp
 
-## Feature #2: Movie Search
--	Typing in the search bar automatically triggers a search.
--	An empty state will be displayed when there are no search results.
+A React Native movie browser with favorites and search, backed by Redux and covered by a Jest test suite.
 
-## Full filled Requirements
-Home screen displays movies in both grid and list view and user can toggle between them as per their preferences.
-Both list and grid views display following at home screen:
--	Movie Name
--	Artwork (select an appropriate image size)
--	Price
--	Genre
-  
-A placeholder image will appear if the movie artwork fails to load.
+## Overview
 
-The detailed view displays a longer description and data of the movie along with short video(trailer) of the Movie.
+MovieApp is an Expo/React Native app for browsing movies in grid or list view, viewing detailed information (including trailers) for a selected title, and marking movies as favorites. Favorites and last-visited state persist locally so they survive app restarts, and the home screen highlights favorited movies in a horizontal scroll.
 
-## Persistence
-The app stores data in local storage (AsyncStorage) to persist data such as last visited date and user’s favorite movie.
-## Architecture
-Redux is implemented as primary architecture for state management because of its unidirectional data management and centralized store.
+## Problem it solves
 
-## Bonus Challenge
-Bonus Challenge is implemented at top of home screen which shows favorite movies in horizontal scrollable manner.
-## Tech Stack 
--	React Native version: `react-native": "0.74.5`
--	State Management: Redux 
--	Local Storage: AsyncStorage 
--	Network Requests: Axios 
--	Image Loading: expo-av
--	Testing: Jest 
+It demonstrates a complete, testable movie-discovery flow — browsing, searching, and favoriting — with favorites that stay in sync between the list/grid view and the details view and survive being offline, rather than living only in ephemeral component state.
 
-## Installation
-Clone the repository and run:
-- `npm install`
-- `npm start`
+## Key features
 
-## Testing
-- Run `npm test` to run the jest test
+- **Dual view modes** — toggle between grid and list layouts on the home screen, each showing movie name, artwork, price, and genre.
+- **Favorites that stay in sync** — marking a movie favorite from either the list/grid or the details screen updates both, and persists via `AsyncStorage`.
+- **Live search** — typing in the search bar triggers search automatically, with an explicit empty-results state.
+- **Favorites bar** — a horizontally scrollable strip of favorited movies surfaced at the top of the home screen.
+- **Movie details with trailer** — detail screen shows an extended description plus a short trailer video (`expo-av`).
+- **Graceful image fallback** — a placeholder image is shown if artwork fails to load.
+- **Automated tests** — Jest + React Native Testing Library tests for the Home and Movie Details screens, with `axios-mock-adapter` and `redux-mock-store` for mocking network calls and store state.
 
-## APK Link
-https://drive.google.com/file/d/1Rf_8bY2S1e9GroBLC0_6sZzho-gywrj2/view?usp=drive_link
+## What's unique about it
 
+- Favorites are implemented as a single source of truth in a Redux slice (`FavSlice`) consumed identically by both the grid/list and details screens, so state never drifts between views.
+- The project ships with a real test suite (`__test__/`) exercising both screens against mocked API responses, rather than being untested boilerplate.
 
+## Tech stack
+
+- **React Native** (0.74) with **Expo** (~51)
+- **Redux Toolkit** + **React Redux** for state management
+- **React Navigation** (native + stack)
+- **Axios** for network requests, with `axios-mock-adapter` for test mocking
+- **AsyncStorage** for local persistence
+- **expo-av** / **expo-image** for media and image handling
+- **Jest** + **jest-expo** + **@testing-library/react-native** for testing
+
+## Setup / running instructions
+
+```bash
+npm install
+npm start
+```
+
+Run on a specific platform:
+```bash
+npm run android
+npm run ios
+npm run web
+```
+
+Run the test suite:
+```bash
+npm test
+```
